@@ -2,5 +2,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import 'bootstrap/scss/bootstrap.scss'
+import './assets/css/adminlte.css'
+import './assets/css/fontawesome/css/all.min.css'
+import './assets/css/tempusdominus-bootstrap-4.min.css'
+import './assets/css/OverlayScrollbars.min.css'
+import './assets/js/adminlte.js'
+import 'bootstrap'
 createApp(App).use(store).use(router).mount('#app')
