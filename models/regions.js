@@ -12,12 +12,18 @@ const region=(data,callback)=>{
     }
     )
 };
-const getRegions=(id,callback)=>{
+const getRegions=(callback)=>{
     pool.createPool.query('CALL rp_regions("%")',(error,result)=>{
         return callback(error,result);
     });
-}
+};
+const getRegionsByID=(id,callback)=>{
+    pool.createPool.query('CALL rp_regions(?)',[id],(error,result)=>{
+        return callback(error,result);
+    });
+};
 module.exports={
     region,
-    getRegions
+    getRegions,
+    getRegionsByID,
 };

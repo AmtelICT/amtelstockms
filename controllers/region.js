@@ -13,13 +13,7 @@ const region=(req,res)=>{
     })
 };
 const getRegions=(req,res)=>{
-    let id=req.params.id;
-    if(id == ''){
-        id='%';
-    }
-    console.log(id);
-    regionModel.getRegions(id,(err,result)=>{
-        //res.json('almost done');
+    regionModel.getRegions((err,result)=>{
         if(err){
             res.json(err);
         }
@@ -29,8 +23,23 @@ const getRegions=(req,res)=>{
             })
         }
     })
-    }
+};
+const getRegionsByID=(req,res)=>{
+    let id=req.params.id;
+    console.log(id);
+    regionModel.getRegionsByID(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+}
 module.exports={
     region,
-    getRegions
+    getRegions,
+    getRegionsByID
 }

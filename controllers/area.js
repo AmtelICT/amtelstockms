@@ -1,20 +1,7 @@
-const zoneModel=require("../models/zone")
-const zone=(req,res)=>{
+const areaModel=require("../models/area");
+const area=(req,res)=>{
     const body=req.body;
-    zoneModel.zone(body,(err,result)=>{
-        if(err){
-            res.json(err)
-        }
-        else{
-            res.json({
-                message:result
-            });
-        }
-    })
-};
-const getZone=(req,res)=>{
-    zoneModel.getZone((err,result)=>{
-        console.log(result);
+    areaModel.area(body,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -25,9 +12,21 @@ const getZone=(req,res)=>{
         }
     })
 };
-const getZoneByID=(req,res)=>{
-    id=req.params.id;
-    zoneModel.getZoneByID(id,(err,result)=>{
+const getArea=(req,res)=>{
+    areaModel.getArea((err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+};
+const getAreaByID=(req,res)=>{
+    let id=req.params.id;
+    areaModel.getAreaByID(id,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -39,7 +38,7 @@ const getZoneByID=(req,res)=>{
     })
 };
 module.exports={
-    zone,
-    getZone,
-    getZoneByID
+    area,
+    getArea,
+    getAreaByID
 }

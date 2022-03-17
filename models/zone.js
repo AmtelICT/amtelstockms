@@ -15,8 +15,14 @@ const getZone=(callback)=>{
     pool.createPool.query('CALL rp_zones()',(error,result)=>{
         return callback(error,result);
     });
-}
+};
+const getZoneByID=(id,callback)=>{
+    pool.createPool.query('SELECT * FROM zone WHERE id=?',[id],(error,result)=>{
+        return callback(error,result);
+    });
+};
 module.exports={
     zone,
-    getZone
+    getZone,
+    getZoneByID
 };
