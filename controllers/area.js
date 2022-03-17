@@ -37,8 +37,50 @@ const getAreaByID=(req,res)=>{
         }
     })
 };
+const getAreaByDistrictID=(req,res)=>{
+    let id=req.params.id;
+    areaModel.getAreaByDistrictID(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+};
+const getAreaByRegionID=(req,res)=>{
+    let id=req.params.id;
+    areaModel.getAreaByRegionID(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+};
+const getAreaByZoneID=(req,res)=>{
+    let id=req.params.id;
+    areaModel.getAreaByZoneID(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+};
 module.exports={
     area,
     getArea,
-    getAreaByID
+    getAreaByID,
+    getAreaByDistrictID,
+    getAreaByRegionID,
+    getAreaByZoneID
 }
