@@ -52,6 +52,7 @@ const getAreaByZoneID=(id,callback)=>{
 module.exports={
     area,
     getArea,
+    getAreaByID,
     getAreaByDistrictID,
     getAreaByRegionID,
     getAreaByZoneID
