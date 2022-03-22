@@ -1,11 +1,11 @@
-module.exports={
-    configureWebpack:{
-        devServer:{
-            proxy:{
-                '/api':{
-                    target:'localhost:5000'
-                }
-            }
-        }
-    }
+module.exports = {
+    configureWebpack: {
+        devServer: {
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:5000',
+                },
+            },
+        },
+    },
 }
