@@ -1,14 +1,13 @@
 const zoneModel=require("../models/zone")
 const zone=(req,res)=>{
     const body=req.body;
-    console.log(body);
     zoneModel.zone(body,(err,result)=>{
         if(err){
             res.json(err)
         }
         else{
             res.json({
-                message:result
+                message:result[0][0].msg
             });
         }
     })

@@ -22,8 +22,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <router-link :to="{name:'addZone',params:{id:0}}" class="btn btn-primary mb-2 float-right">
-                  <i class="fas fa-plus pr-2"></i>Add New Zone
+                <router-link :to="{name:'addZone',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
+                  <i class="fas fa-plus pr-2"></i>Create New
                 </router-link>
               </div>
             </div>
