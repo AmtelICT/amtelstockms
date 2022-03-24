@@ -33,7 +33,7 @@ const getZoneByID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })

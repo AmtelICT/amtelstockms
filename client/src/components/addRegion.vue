@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Zone</h1>
+            <h1 class="m-0">Add Region</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Registrations</li>
-              <li class="breadcrumb-item active">Zones</li>
+              <li class="breadcrumb-item active">Regions</li>
             </ol>
           </div>
         </div>
@@ -27,13 +27,23 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="name">Zone Name</label>
-                    <input type="text" v-model="formData.name" class="form-control" id="name" placeholder="Enter Zone Name" required>
+                    <label for="name">Region Name</label>
+                    <input type="text" v-model="formData.regionName" class="form-control" id="name" placeholder="Enter Zone Name" required>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="name">Region Name</label>
+                    <select class="form-control select2" id="airline" style="width: 100%;" name="airline">
+                        <option value="">Select Airline</option>
+                        <option value="">Welcome</option>
+                        <option value="">Common</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" v-model="formData.description" class="form-control" id="description" placeholder="Enter Description">
@@ -68,17 +78,30 @@
 </template>
 
 <script>
-import { Alert,Modal} from 'bootstrap'
+import { Alert} from 'bootstrap'
 import axios from 'axios'
+import { mapState } from 'vuex'
+import $ from "jquery"
+import store from '../store'
+$(document).ready(function () {
+    $('.select2').select2();
+        //Initialize Select2 Elements
+    $('.select2bs4').select2({
+        theme: 'bootstrap4'
+    });
+});
 export default {
     props:['id'],
-    name: 'addZone',
+    name: 'addRegion',
     data(){
         return{
+            zoneList:store.state.zones,
           alert:null,
           modal:null,
           formData:{
             id:this.id,
+            regionName:'',
+            zone:[],
             name:'',
             description:''
           },
@@ -91,13 +114,14 @@ export default {
           }
         }
     },
-    async beforeMount(){
+    async beforeMount(){ 
       if(this.id !=0){
         let url=`http://localhost:5000/getZoneById/${this.id}`;
         var response=await axios.get(url);
         this.formData.name=response.data.message[0].name;
         this.formData.description=response.data.message[0].description;
       }
+      // this.formData.zone=zones;
     },
     mounted(){
     },
@@ -131,6 +155,9 @@ export default {
       },
       close(){
       }
-    }
+    },
+    // computed:{
+    //   ...mapState(['zoneList'])
+    // },
 }
 </script>

@@ -22,7 +22,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <router-link :to="{name:'addZone',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
+                <router-link :to="{name:'addRegion',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
                   <i class="fas fa-plus pr-2"></i>Create New
                 </router-link>
               </div>
@@ -32,7 +32,8 @@
                 <table id="example2" class="table table-hover">
                   <thead>
                   <tr>
-                    <th>S NO</th>
+                    <th>S. NO</th>
+                    <th>Region Name</th>
                     <th>Zone Name</th>
                     <th>Description</th>
                     <th>Date</th>
@@ -40,12 +41,13 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="(zone,index) in zoneList">
-                    <td>{{index +1}}</td>
-                    <td>{{zone.name}}</td>
-                    <td>{{zone.description}}</td>
-                    <td>{{zone.date}}</td>
-                    <th><router-link :to="{name:'addZone',params:{id:zone.id}}" class="btn btn-primary" type="button" @click="hello(index)"><i class="fas fa-edit"></i></router-link></th>
+                  <tr v-for="(region,index) in regionList">
+                    <td>{{index+1}}</td>
+                    <td>{{region.region_name}}</td>
+                    <td>{{region.zone}}</td>
+                    <td>{{region.description}}</td>
+                    <td>{{region.date}}</td>
+                    <td><router-link :to="{name:'addRegion',params:{id:region.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td>
                   </tr>
                   </tbody>
                 </table>
@@ -62,20 +64,18 @@
 import axios from 'axios'
 import moment from 'moment'
 export default {
-  name: 'ZoneList',
+  name: 'RegionList',
   data(){
     return{
-      zoneList:[]
+      regionList:[]
     }
   },
   async mounted(){
-    const response=await axios.get("http://localhost:5000/getZone");
-    this.zoneList=response.data.message;
-    for(let i=0;i<this.zoneList.length;i++){
-      this.zoneList[i].date=moment(this.zoneList[i].date).format("DD-MM-YYYY");
+    const response=await axios.get("http://localhost:5000/getRegions");
+    this.regionList=response.data.message;
+    for(let i=0;i<this.regionList.length;i++){
+      this.regionList[i].date=moment(this.regionList[i].date).format("DD-MM-YYYY");
     }
   },
-  methods:{
-  }
 }
 </script>

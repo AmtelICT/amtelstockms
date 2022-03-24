@@ -19,7 +19,7 @@ const getRegions=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
@@ -33,7 +33,7 @@ const getRegionsByID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
