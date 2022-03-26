@@ -30,16 +30,15 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="name">Region Name</label>
-                    <input type="text" v-model="formData.regionName" class="form-control" id="name" placeholder="Enter Zone Name" required>
+                    <input type="text" v-model="formData.regionName" class="form-control" id="select2" placeholder="Enter Region Name" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="name">Region Name</label>
-                    <select class="form-control select2" id="airline" style="width: 100%;" name="airline">
-                        <option value="">Select Airline</option>
-                        <option value="">Welcome</option>
-                        <option value="">Common</option>
+                    <label for="name">Zone Name {{formData.zone}}</label>
+                    <select  v-model="formData.zone" class="form-control select2" style="width: 100%;">
+                      <option value="">Select Zone</option>
+                      <option v-for="(zone,index) in getZones" :value="zone.id">{{zone.name}}</option>
                     </select>
                   </div>
                 </div>
@@ -80,28 +79,29 @@
 <script>
 import { Alert} from 'bootstrap'
 import axios from 'axios'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import $ from "jquery"
-import store from '../store'
 $(document).ready(function () {
-    $('.select2').select2();
-        //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    });
+    // $('.select2').select2();
 });
 export default {
     props:['id'],
     name: 'addRegion',
     data(){
         return{
-            zoneList:store.state.zones,
+          select2:null,
           alert:null,
           modal:null,
           formData:{
             id:this.id,
             regionName:'',
-            zone:[],
+            zone:'',
+            zones:[
+              {name:'Zone 1', value:1},
+              {name:'Zone 2', value:2},
+              {name:'Zone 3', value:3},
+              {name:'Zone 4', value:4}
+            ],
             name:'',
             description:''
           },
@@ -116,14 +116,13 @@ export default {
     },
     async beforeMount(){ 
       if(this.id !=0){
-        let url=`http://localhost:5000/getZoneById/${this.id}`;
+        let url=`http://localhost:5000/getRegionsByID/${this.id}`;
         var response=await axios.get(url);
-        this.formData.name=response.data.message[0].name;
-        this.formData.description=response.data.message[0].description;
+        console.log(response.data.message);
+        // this.formData.name=response.data.message[0].name;
+        // this.formData.description=response.data.message[0].description;
       }
       // this.formData.zone=zones;
-    },
-    mounted(){
     },
     methods:{
       async zone(){
@@ -153,11 +152,17 @@ export default {
         })
         self.alert = new Alert(this.$refs.alertMessage);
       },
-      close(){
-      }
     },
-    // computed:{
-    //   ...mapState(['zoneList'])
-    // },
+    mounted(){
+      let vm=this;
+      this.select2=$('.select2')
+        .select2().on("change", function() {
+          vm.formData.zone=this.value;
+        });
+    },
+    computed:{
+      ...mapGetters(["getZones"]),
+
+    },
 }
 </script>
