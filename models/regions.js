@@ -13,12 +13,13 @@ const region=(data,callback)=>{
     )
 };
 const getRegions=(callback)=>{
-    pool.createPool.query('CALL rp_regions("%")',(error,result)=>{
+    pool.createPool.query('CALL rp_regions()',(error,result)=>{
         return callback(error,result);
     });
 };
 const getRegionsByID=(id,callback)=>{
-    pool.createPool.query('CALL rp_regions(?)',[id],(error,result)=>{
+    pool.createPool.query(`SELECT r.id,z.id 'zone_id',z.name 'zone',r.region_name,r.description,r.status,date(r.date) 'date' FROM regions r 
+    INNER JOIN zone z ON z.id=r.zone_id WHERE r.id=?`,[id],(error,result)=>{
         return callback(error,result);
     });
 };

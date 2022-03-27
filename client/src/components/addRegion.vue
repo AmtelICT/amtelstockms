@@ -18,7 +18,7 @@
     </div>
     <section class="content">
       <div class="container-fluid">
-        <form @submit.prevent="zone">
+        <form @submit.prevent="region">
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
@@ -96,13 +96,6 @@ export default {
             id:this.id,
             regionName:'',
             zone:'',
-            zones:[
-              {name:'Zone 1', value:1},
-              {name:'Zone 2', value:2},
-              {name:'Zone 3', value:3},
-              {name:'Zone 4', value:4}
-            ],
-            name:'',
             description:''
           },
           responseMessage:{
@@ -115,24 +108,19 @@ export default {
         }
     },
     async beforeMount(){ 
-      if(this.id !=0){
-        let url=`http://localhost:5000/getRegionsByID/${this.id}`;
-        var response=await axios.get(url);
-        console.log(response.data.message);
-        // this.formData.name=response.data.message[0].name;
-        // this.formData.description=response.data.message[0].description;
-      }
       // this.formData.zone=zones;
     },
     methods:{
-      async zone(){
+      async region(){
         let self=this;
-        await axios.post('http://localhost:5000/zone', {
+        await axios.post('http://localhost:5000/region', {
           id:this.formData.id,
+          zone_id:this.formData.zone,
           name:this.formData.name,
           description:this.formData.description,
           user_id:"1"
         }).then(function(response){
+          console.log(response);
           let message=response.data.message.split("|");
           self.responseMessage.message=message[1];
           self.responseMessage.messageType=message[0];
@@ -153,10 +141,19 @@ export default {
         self.alert = new Alert(this.$refs.alertMessage);
       },
     },
-    mounted(){
-      let vm=this;
-      this.select2=$('.select2')
-        .select2().on("change", function() {
+    async mounted(){
+      if(this.id !=0){
+        let url=`http://localhost:5000/getRegionsByID/${this.id}`;
+        var response=await axios.get(url);
+        this.formData.regionName=response.data.message.region_name;
+        this.formData.zone=response.data.message.zone_id;
+        this.formData.description=response.data.message.description;
+        $('.select2').val(this.formData.zone).trigger("change");
+      }
+      console.log(this.formData)
+        let vm=this;
+        this.select2=$('.select2')
+          .select2().on("change", function() {
           vm.formData.zone=this.value;
         });
     },
