@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Region</h1>
+            <h1 class="m-0">Add District</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Registrations</li>
-              <li class="breadcrumb-item active">Regions</li>
+              <li class="breadcrumb-item active">Districts</li>
             </ol>
           </div>
         </div>
@@ -27,13 +27,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="name">Region Name</label>
+                    <label for="name">District Name</label>
                     <input type="text" v-model="formData.regionName" class="form-control" id="select2" placeholder="Enter Region Name" required>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Zone Name {{formData.zone}}</label>
                     <select  v-model="formData.zone" class="form-control select2" style="width: 100%;">
@@ -42,7 +42,16 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">Region Name {{formData.zone}}</label>
+                    <select  v-model="formData.zone" class="form-control select2" style="width: 100%;">
+                      <option value="">Select Region</option>
+                      <option v-for="(zone,index) in getZones" :value="zone.id">{{zone.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" v-model="formData.description" class="form-control" id="description" placeholder="Enter Description">
@@ -52,12 +61,12 @@
             </div>
             <div class="card-footer">
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                 </div>
-                <div class="col-3">
-                  <button type="reset" class="btn btn-default btn-block float-right sys-cancel">Cancel</button>
+                <div class="col-md-3 ">
+                  <button type="reset" class="btn btn-default btn-block float-right sys-cancel mb-3 mb-lg-0 mb-xl-0">Cancel</button>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <button type="submit" class="btn btn-block float-right btn-success">Submit</button>
                 </div>
               </div>

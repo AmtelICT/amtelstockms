@@ -37,7 +37,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <router-link to="/" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tachometer-alt nav-icon"></i>
                 <p>
                 Dashboard
                 </p>
@@ -62,6 +62,12 @@
                 <router-link to="/region-list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Regions</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/district-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Districts</p>
                 </router-link>
               </li>
             </ul>

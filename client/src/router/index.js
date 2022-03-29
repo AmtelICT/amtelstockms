@@ -6,6 +6,9 @@ import addZone from '../components/addZone'
 
 import RegionList from "../views/Region.vue"
 import addRegion from "../components/addRegion.vue"
+
+import DistrictList from "../views/District.vue"
+import addDistrict from "../components/addDistrict.vue"
 const routes = [
   {
     path: '/',
@@ -32,6 +35,17 @@ const routes = [
     path:"/addRegion/:id",
     name:"addRegion",
     component:addRegion,
+    props:true
+  },
+  {
+    path:"/district-list",
+    name:"DistrictList",
+    component:DistrictList,
+  },
+  {
+    path:"/addDistrict/:id",
+    name:"addDistrict",
+    component:addDistrict,
     props:true
   }
 ]

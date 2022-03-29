@@ -19,7 +19,7 @@ const getDistrict=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
@@ -32,7 +32,7 @@ const getDistrictByID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
@@ -45,7 +45,7 @@ const getDistrictByRegionID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
@@ -58,7 +58,7 @@ const getDistrictByZoneID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })
