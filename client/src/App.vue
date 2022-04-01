@@ -14,24 +14,14 @@ export default {
   },
   data () {
     return {
-      name:'Abdisalan',
-      zones:[],
     }
   },
   mounted(){
     this.loadZones();
+    this.loadRegions();
   },
   methods:{
-    ...mapActions(['loadZones'])
+    ...mapActions(['loadZones','loadRegions'])
   }
-  // async created(){
-    
-  //   // const response=await axios.get("http://localhost:5000/getZone");
-  //   // store.state.zones=response.data.message;
-  //   // for(let i=0;i<store.state.zones.length;i++){
-  //   //   store.state.zones[i].date=moment(store.state.zones[i].date).format("DD-MM-YYYY");
-  //   // }
-  //   // console.log(store.state.zones);
-  // }
 }
 </script>

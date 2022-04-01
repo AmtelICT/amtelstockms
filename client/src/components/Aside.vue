@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="../assets/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">AMTEL DESK</span>
     </a>
 
     <!-- Sidebar -->
@@ -36,7 +36,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <router-link to="/" class="nav-link active">
+            <router-link to="/" class="nav-link">
                 <i class="fas fa-tachometer-alt nav-icon"></i>
                 <p>
                 Dashboard
@@ -68,6 +68,12 @@
                 <router-link to="/district-list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Districts</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Area</p>
                 </router-link>
               </li>
             </ul>

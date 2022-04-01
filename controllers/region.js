@@ -38,8 +38,23 @@ const getRegionsByID=(req,res)=>{
         }
     })
 }
+const getRegionsByZone=(req,res)=>{
+    let id=req.params.id;
+    console.log(req);
+    regionModel.getRegionsByZone(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+}
 module.exports={
     region,
     getRegions,
-    getRegionsByID
+    getRegionsByID,
+    getRegionsByZone
 }

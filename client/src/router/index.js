@@ -9,6 +9,8 @@ import addRegion from "../components/addRegion.vue"
 
 import DistrictList from "../views/District.vue"
 import addDistrict from "../components/addDistrict.vue"
+
+import AreaList from "../views/Area.vue"
 const routes = [
   {
     path: '/',
@@ -47,7 +49,12 @@ const routes = [
     name:"addDistrict",
     component:addDistrict,
     props:true
-  }
+  },
+  {
+    path:"/area-list",
+    name:"AreaList",
+    component:AreaList,
+  },
 ]
 
 const router = createRouter({

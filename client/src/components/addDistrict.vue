@@ -18,7 +18,7 @@
     </div>
     <section class="content">
       <div class="container-fluid">
-        <form @submit.prevent="region">
+        <form @submit.prevent="zone">
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
@@ -30,13 +30,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">District Name</label>
-                    <input type="text" v-model="formData.regionName" class="form-control" id="select2" placeholder="Enter Region Name" required>
+                    <input type="text" v-model="formData.name" class="form-control" id="select2" placeholder="Enter District Name" required>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Zone Name {{formData.zone}}</label>
-                    <select  v-model="formData.zone" class="form-control select2" style="width: 100%;">
+                    <select  v-model="formData.zone" class="form-control select2" id="zone" style="width: 100%;" required>
                       <option value="">Select Zone</option>
                       <option v-for="(zone,index) in getZones" :value="zone.id">{{zone.name}}</option>
                     </select>
@@ -44,10 +44,10 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="name">Region Name {{formData.zone}}</label>
-                    <select  v-model="formData.zone" class="form-control select2" style="width: 100%;">
+                    <label for="name">Region Name {{formData.region}}</label>
+                    <select  v-model="formData.region" class="form-control select2 " id="region" style="width: 100%;" required>
                       <option value="">Select Region</option>
-                      <option v-for="(zone,index) in getZones" :value="zone.id">{{zone.name}}</option>
+                      <option v-for="(region,index) in regionsByZone" :value="region.id">{{region.region_name}}</option>
                     </select>
                   </div>
                 </div>
@@ -92,18 +92,24 @@ import { mapGetters } from 'vuex'
 import $ from "jquery"
 $(document).ready(function () {
     // $('.select2').select2();
+    // $("#zone").trigger("change");
+    $("#zone").change(function(){
+    })
 });
 export default {
     props:['id'],
     name: 'addRegion',
     data(){
         return{
-          select2:null,
+          regionsByZone:[],
+          zoneSelect2:null,
+          regionSelect2:null,
           alert:null,
           modal:null,
           formData:{
             id:this.id,
-            regionName:'',
+            name:'',
+            region:'',
             zone:'',
             description:''
           },
@@ -117,12 +123,20 @@ export default {
         }
     },
     methods:{
-      async region(){
+      async filterRegions(){
+        if(this.formData.zone){
+          this.regionsByZone=[];
+          let url=`http://localhost:5000/getRegionsByZone/${this.formData.zone}`;
+          let response=await axios.get(url);
+          this.regionsByZone=response.data.message;
+        }
+      },
+      async zone(){
         let self=this;
-        await axios.post('http://localhost:5000/region', {
+        await axios.post('http://localhost:5000/district', {
           id:this.formData.id,
-          zone_id:this.formData.zone,
-          name:this.formData.regionName,
+          region_id:this.formData.region,
+          name:this.formData.name,
           description:this.formData.description,
           user_id:"1"
         }).then(function(response){
@@ -137,7 +151,7 @@ export default {
             self.formData.zone='';
             $('.select2').val('');
             $('.select2').trigger('change');
-            self.formData.regionName='';
+            self.formData.name='';
             self.formData.description='';
           }
           else{
@@ -147,7 +161,7 @@ export default {
         })
         self.alert = new Alert(this.$refs.alertMessage);
         setTimeout(function(){
-          if(self.$route.params.id != 0 && self.$route.name =='addRegion'){
+          if(self.$route.params.id != 0 && self.$route.name =='addDistrict'){
             self.$router.go(-1);
           }
         },5000);
@@ -155,22 +169,30 @@ export default {
     },
     async mounted(){
       if(this.id !=0){
-        let url=`http://localhost:5000/getRegionsByID/${this.id}`;
+        let url=`http://localhost:5000/getDistrictByID/${this.id}`;
         var response=await axios.get(url);
-        this.formData.regionName=response.data.message.region_name;
+        this.formData.name=response.data.message.name;
         this.formData.zone=response.data.message.zone_id;
+        $('#zone').val(this.formData.zone);
+        this.filterRegions();
+        this.formData.region=response.data.message.region_id;
+        $('#region').val(this.formData.region);
         this.formData.description=response.data.message.description;
-        $('.select2').val(this.formData.zone).trigger("change");
       }
-        let vm=this;
-        this.select2=$('.select2')
-          .select2().on("change", function() {
-          vm.formData.zone=this.value;
-        });
+      let vm=this;
+      this.zoneSelect2=$('#zone')
+        .select2().on("change", function() {
+        vm.formData.zone=this.value;
+        vm.formData.region='';
+        vm.filterRegions();
+      });
+      this.zoneSelect2=$('#region')
+        .select2().on("change", function() {
+        vm.formData.region=this.value;
+      });
     },
     computed:{
-      ...mapGetters(["getZones"]),
-
+      ...mapGetters(["getZones","getRegions"]),
     },
 }
 </script>

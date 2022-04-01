@@ -17,6 +17,7 @@ const routes=(app)=>{
     app.post("/region",regionController.region);
     app.get("/getRegions/",regionController.getRegions);
     app.get("/getRegionsById/:id",regionController.getRegionsByID);
+    app.get("/getRegionsByZone/:id",regionController.getRegionsByZone);
     //districts
     app.post("/district",districtController.district);
     app.get("/getDistrict/",districtController.getDistrict);

@@ -5,19 +5,19 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">District List</h1>
+            <h1 class="m-0">Area List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Registrations</li>
-              <li class="breadcrumb-item active">District</li>
+              <li class="breadcrumb-item active">Areas</li>
             </ol>
           </div>
         </div>
       </div>
     </div>
     <section class="content">
-      <div class="container-fluid">       
+      <div class="container-fluid">    
         <div class="card">
           <div class="card-body">
             <div class="row">
@@ -33,23 +33,25 @@
                   <thead>
                   <tr>
                     <th>S. NO</th>
+                    <th>Area Name</th>
                     <th>District Name</th>
                     <th>Region Name</th>
                     <th>Zone Name</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Actions</th>
+                    <!-- <th>Edit</th> -->
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="(district,index) in districtList">
+                  <tr v-for="(area,index) in areaList">
                     <td>{{index+1}}</td>
-                    <td>{{district.name}}</td>
-                    <td>{{district.region_name}}</td>
-                    <td>{{district.zone_name}}</td>
-                    <td>{{district.description}}</td>
-                    <td>{{district.date}}</td>
-                    <td><router-link :to="{name:'addDistrict',params:{id:district.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td> 
+                    <td>{{area.name}}</td>
+                    <td>{{area.district}}</td>
+                    <td>{{area.region_name}}</td>
+                    <td>{{area.zone_name}}</td>
+                    <td>{{area.description}}</td>
+                    <td>{{area.date}}</td>
+                    <!-- <td><router-link :to="{name:'addArea',params:{id:area.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td>  -->
                   </tr>
                   </tbody>
                 </table>
@@ -67,17 +69,18 @@ import $ from "jquery";
 import axios from 'axios'
 import moment from 'moment'
 export default {
-  name: 'DistrictList',
+  name: 'AreaList',
   data(){
     return{
-      districtList:[]
+      areaList:[]
     }
   },
   async mounted(){
-    const response=await axios.get("http://localhost:5000/getDistrict");
-    this.districtList=response.data.message;
-    for(let i=0;i<this.districtList.length;i++){
-      this.districtList[i].date=moment(this.districtList[i].date).format("DD-MM-YYYY");
+    const response=await axios.get("http://localhost:5000/getarea");
+    console.log(response);
+    this.areaList=response.data.message;
+    for(let i=0;i<this.areaList.length;i++){
+      this.areaList[i].date=moment(this.areaList[i].date).format("DD-MM-YYYY");
     }
     setTimeout(function(){
       $("#table-list").DataTable({

@@ -7,7 +7,7 @@ const district=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0][0].msg
             })
         }
     })

@@ -23,8 +23,15 @@ const getRegionsByID=(id,callback)=>{
         return callback(error,result);
     });
 };
+const getRegionsByZone=(id,callback)=>{
+    pool.createPool.query(`SELECT r.id,z.id 'zone_id',z.name 'zone',r.region_name,r.description,r.status,date(r.date) 'date' FROM regions r 
+    INNER JOIN zone z ON z.id=r.zone_id WHERE z.id=?`,[id],(error,result)=>{
+        return callback(error,result);
+    });
+};
 module.exports={
     region,
     getRegions,
     getRegionsByID,
+    getRegionsByZone
 };
