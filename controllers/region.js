@@ -26,7 +26,6 @@ const getRegions=(req,res)=>{
 };
 const getRegionsByID=(req,res)=>{
     let id=req.params.id;
-    console.log(id);
     regionModel.getRegionsByID(id,(err,result)=>{
         if(err){
             res.json(err);
@@ -40,7 +39,6 @@ const getRegionsByID=(req,res)=>{
 }
 const getRegionsByZone=(req,res)=>{
     let id=req.params.id;
-    console.log(req);
     regionModel.getRegionsByZone(id,(err,result)=>{
         if(err){
             res.json(err);

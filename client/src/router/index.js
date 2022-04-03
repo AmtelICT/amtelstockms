@@ -11,6 +11,7 @@ import DistrictList from "../views/District.vue"
 import addDistrict from "../components/addDistrict.vue"
 
 import AreaList from "../views/Area.vue"
+import addArea from "../components/addArea.vue"
 const routes = [
   {
     path: '/',
@@ -54,6 +55,12 @@ const routes = [
     path:"/area-list",
     name:"AreaList",
     component:AreaList,
+  },
+  {
+    path:"/addArea/:id",
+    name:"addArea",
+    component:addArea,
+    props:true
   },
 ]
 

@@ -45,7 +45,7 @@ const getDistrictByRegionID=(req,res)=>{
         }
         else{
             res.json({
-                message:result[0]
+                message:result
             })
         }
     })

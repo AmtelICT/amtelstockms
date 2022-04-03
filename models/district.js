@@ -28,7 +28,7 @@ const getDistrictByRegionID=(id,callback)=>{
     pool.createPool.query(`
     SELECT d.id,d.name,d.description,d.status,date(d.date) 'date',r.id 'region_id',r.region_name,z.id 'zone_id',z.name 'zone_name' FROM districts d
     INNER JOIN regions r ON r.id=d.region_id
-    INNER JOIN zone z ON z.id=r.zone_id WHERE r.id=?`,[id],(error,result)=>{
+    INNER JOIN zone z ON z.id=r.zone_id WHERE r.id=? ORDER BY d.name`,[id],(error,result)=>{
         return callback(error,result);
     });
 };

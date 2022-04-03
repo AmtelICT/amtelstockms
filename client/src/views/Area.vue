@@ -22,7 +22,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <router-link :to="{name:'addDistrict',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
+                <router-link :to="{name:'addArea',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
                   <i class="fas fa-plus pr-2"></i>Create New
                 </router-link>
               </div>
@@ -39,7 +39,7 @@
                     <th>Zone Name</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <!-- <th>Edit</th> -->
+                    <th>Edit</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,7 +51,7 @@
                     <td>{{area.zone_name}}</td>
                     <td>{{area.description}}</td>
                     <td>{{area.date}}</td>
-                    <!-- <td><router-link :to="{name:'addArea',params:{id:area.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td>  -->
+                    <td><router-link :to="{name:'addArea',params:{id:area.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td> 
                   </tr>
                   </tbody>
                 </table>

@@ -92,19 +92,21 @@ export default {
         }
     },
     async beforeMount(){
-      if(this.id !=0){
-        let url=`http://localhost:5000/getZoneById/${this.id}`;
-        var response=await axios.get(url);
-        this.formData.name=response.data.message[0].name;
-        this.formData.description=response.data.message[0].description;
-      }
+     
     },
-    mounted(){
+    async mounted(){
+       if(this.id !=0){
+        let url=`${process.env.BACKEND_URL}/getZoneById/${this.id}`;
+        var response=await axios.get(url);
+        this.formData.name=response.data.message.name;
+        this.formData.description=response.data.message.description;
+      }
     },
     methods:{
       async zone(){
         let self=this;
-        await axios.post('http://localhost:5000/zone', {
+        let url=process.env.BACKEND_URL
+        await axios.post(`${url}/zone`, {
           id:this.formData.id,
           name:this.formData.name,
           description:this.formData.description,

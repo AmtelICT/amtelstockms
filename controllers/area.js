@@ -7,7 +7,7 @@ const area=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0][0].msg
             })
         }
     })
@@ -32,7 +32,7 @@ const getAreaByID=(req,res)=>{
         }
         else{
             res.json({
-                message:result
+                message:result[0]
             })
         }
     })

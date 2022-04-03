@@ -45,7 +45,7 @@
                     <td>{{zone.name}}</td>
                     <td>{{zone.description}}</td>
                     <td>{{zone.date}}</td>
-                    <th><router-link :to="{name:'addZone',params:{id:zone.id}}" class="btn btn-primary" type="button" @click="hello(index)"><i class="fas fa-edit"></i></router-link></th>
+                    <th><router-link :to="{name:'addZone',params:{id:zone.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></th>
                   </tr>
                   </tbody>
                 </table>
@@ -69,7 +69,8 @@ export default {
     }
   },
   async mounted(){
-    const response=await axios.get("http://localhost:5000/getZone");
+    let url=process.env.BACKEND_URL;
+    const response=await axios.get(`${url}/getZone`);
     this.zoneList=response.data.message;
     for(let i=0;i<this.zoneList.length;i++){
       this.zoneList[i].date=moment(this.zoneList[i].date).format("DD-MM-YYYY");

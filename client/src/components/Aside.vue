@@ -45,9 +45,9 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>
-                Registrations
+                Company Info
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -62,6 +62,71 @@
                 <router-link to="/region-list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Regions</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/district-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Districts</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Areas</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Branches</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>HQ Offices</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Departments</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/area-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sections</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                User Management
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/zone-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Users</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/region-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Change Password</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/region-list" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Reset Password</p>
                 </router-link>
               </li>
               <li class="nav-item">
