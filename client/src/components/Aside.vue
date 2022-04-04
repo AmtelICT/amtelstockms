@@ -77,7 +77,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/area-list" class="nav-link">
+                <router-link to="/branch-list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Branches</p>
                 </router-link>

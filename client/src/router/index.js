@@ -12,6 +12,9 @@ import addDistrict from "../components/addDistrict.vue"
 
 import AreaList from "../views/Area.vue"
 import addArea from "../components/addArea.vue"
+
+import BranchList from "../views/Branch.vue"
+import addBranch from "../components/addBranch.vue"
 const routes = [
   {
     path: '/',
@@ -62,6 +65,17 @@ const routes = [
     component:addArea,
     props:true
   },
+  {
+    path:"/branch-list",
+    name:"BranchList",
+    component:BranchList
+  },
+  {
+    path:"/addBranch/:id",
+    name:"addBranch",
+    component:addBranch,
+    props:true
+  }
 ]
 
 const router = createRouter({

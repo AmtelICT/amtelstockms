@@ -1,7 +1,7 @@
-const areaModel=require("../models/area");
-const area=(req,res)=>{
+const branchModel=require("../models/branch");
+const branch=(req,res)=>{
     const body=req.body;
-    areaModel.area(body,(err,result)=>{
+    branchModel.branch(body,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -12,8 +12,8 @@ const area=(req,res)=>{
         }
     })
 };
-const getArea=(req,res)=>{
-    areaModel.getArea((err,result)=>{
+const getbranch=(req,res)=>{
+    branchModel.getbranch((err,result)=>{
         if(err){
             res.json(err);
         }
@@ -24,9 +24,9 @@ const getArea=(req,res)=>{
         }
     })
 };
-const getAreaByID=(req,res)=>{
+const getbranchByID=(req,res)=>{
     let id=req.params.id;
-    areaModel.getAreaByID(id,(err,result)=>{
+    branchModel.getbranchByID(id,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -37,9 +37,9 @@ const getAreaByID=(req,res)=>{
         }
     })
 };
-const getAreaByDistrictID=(req,res)=>{
+const getbranchByAreaID=(req,res)=>{
     let id=req.params.id;
-    areaModel.getAreaByDistrictID(id,(err,result)=>{
+    branchModel.getbranchByDistrictID(id,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -50,10 +50,9 @@ const getAreaByDistrictID=(req,res)=>{
         }
     })
 };
-
-const getAreaByRegionID=(req,res)=>{
+const getbranchByDistrictID=(req,res)=>{
     let id=req.params.id;
-    areaModel.getAreaByRegionID(id,(err,result)=>{
+    branchModel.getbranchByDistrictID(id,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -64,9 +63,22 @@ const getAreaByRegionID=(req,res)=>{
         }
     })
 };
-const getAreaByZoneID=(req,res)=>{
+const getbranchByRegionID=(req,res)=>{
     let id=req.params.id;
-    areaModel.getAreaByZoneID(id,(err,result)=>{
+    branchModel.getbranchByRegionID(id,(err,result)=>{
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({
+                message:result
+            })
+        }
+    })
+};
+const getbranchByZoneID=(req,res)=>{
+    let id=req.params.id;
+    branchModel.getbranchByZoneID(id,(err,result)=>{
         if(err){
             res.json(err);
         }
@@ -78,10 +90,11 @@ const getAreaByZoneID=(req,res)=>{
     })
 };
 module.exports={
-    area,
-    getArea,
-    getAreaByID,
-    getAreaByDistrictID,
-    getAreaByRegionID,
-    getAreaByZoneID
+    branch,
+    getbranch,
+    getbranchByID,
+    getbranchByAreaID,
+    getbranchByDistrictID,
+    getbranchByRegionID,
+    getbranchByZoneID
 }

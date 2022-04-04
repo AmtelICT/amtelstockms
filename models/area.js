@@ -26,9 +26,9 @@ const getAreaByID=(id,callback)=>{
 };
 const getAreaByDistrictID=(id,callback)=>{
     pool.createPool.query(`SELECT a.id,a.district_id,a.name,a.description,a.status,date(a.date),d.name "district",r.region_name,z.name 'zone_name' FROM area a 
-        INNER JOIN districts d ON d.id=a.district_id
-        INNER JOIN regions r ON r.id=d.region_id
-        INNER JOIN zone z ON z.id=r.zone_id WHERE d.id=?`,[id],(error,result)=>{
+    INNER JOIN districts d ON d.id=a.district_id
+    INNER JOIN regions r ON r.id=d.region_id
+    INNER JOIN zone z ON z.id=r.zone_id WHERE d.id=? ORDER BY a.name`,[id],(error,result)=>{
         return callback(error,result)
     });
 };

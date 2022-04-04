@@ -18,7 +18,7 @@
     </div>
     <section class="content">
       <div class="container-fluid">
-        <form @submit.prevent="area">
+        <form @submit.prevent="branch">
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
@@ -27,14 +27,12 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="name">Area Name</label>
+                    <label for="name">Brnach Name</label>
                     <input type="text" v-model="formData.name" class="form-control" id="select2" placeholder="Enter Area Name" required>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Zone Name {{formData.zone}}</label>
@@ -44,6 +42,8 @@
                     </select>
                   </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">Region Name {{formData.region}}</label>
@@ -53,8 +53,6 @@
                     </select>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="name">District Name {{formData.district}}</label>
@@ -62,6 +60,31 @@
                       <option value="">Select District</option>
                       <option v-for="(district,index) in districtsByRegion" :value="district.id">{{district.name}}</option>
                     </select>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">Area Name {{formData.area}}</label>
+                    <select  v-model="formData.area" class="form-control select2 " id="area" style="width: 100%;" required>
+                      <option value="">Select Area</option>
+                      <option v-for="(area,index) in areasByDistrict" :value="area.id">{{area.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="description">Latitude</label>
+                    <input type="text" v-model="formData.latitude" class="form-control" id="description" placeholder="Enter Latitude">
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="description">Longitude</label>
+                    <input type="text" v-model="formData.longitude" class="form-control" id="description" placeholder="Enter Longitude">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -114,17 +137,24 @@ export default {
         return{
           regionsByZone:[],
           districtsByRegion:[],
+          areasByDistrict:[],
+
           zoneSelect2:null,
           regionSelect2:null,
           districtSelect2:null,
+          areaSelect2:null,
+
           alert:null,
           modal:null,
           formData:{
             id:this.id,
             name:'',
-            region:'',
             zone:'',
+            region:'',
             district:'',
+            area:'',
+            latitude:'',
+            longitude:'',
             description:''
           },
           responseMessage:{
@@ -150,37 +180,49 @@ export default {
           this.districtsByRegion=[];
           let url=`${process.env.BACKEND_URL}/getDistrictByRegionID/${this.formData.region}`;
           let response=await axios.get(url);
-        //   console.log(response);
           this.districtsByRegion=response.data.message;
         }
       },
-      async area(){
+      async filterAreas(){
+        if(this.formData.district){
+          this.areasByDistrict=[];
+          let url=`${process.env.BACKEND_URL}/getareabydistrictid/${this.formData.zone}`;
+          let response=await axios.get(url);
+          this.areasByDistrict=response.data.message;
+          console.log(this.areasByDistrict[0])
+        }
+      },
+      async branch(){
         let self=this;
-        await axios.post(`${process.env.BACKEND_URL}/area`, {
+        await axios.post(`${process.env.BACKEND_URL}/branch`, {
           id:this.formData.id,
-          district_id:this.formData.district,
+          area_id:this.formData.area,
           name:this.formData.name,
+          latitude:this.formData.latitude,
+          longitude:this.formData.longitude,
           description:this.formData.description,
           user_id:"1"
         }).then(function(response){
-          let message=response.data.message.split("|");
-          self.responseMessage.message=message[1];
-          self.responseMessage.messageType=message[0];
-          self.responseMessage.show=true;
-          if(message[0] =='success'){
-            self.responseMessage.icon='fas fa-check';
-            self.responseMessage.color='alert-'+message[0];
-            self.formData.id=0;
-            self.formData.zone='';
-            self.formData.region='';
-            self.formData.district='';
-            self.formData.name='';
-            self.formData.description='';
-            self.regionsByZone=[],
-            self.districtsByRegion=[]
-            $('#zone').val('');
-            $('#zone').trigger('change');
-          }
+            let message=response.data.message.split("|");
+            self.responseMessage.message=message[1];
+            self.responseMessage.messageType=message[0];
+            self.responseMessage.show=true;
+            if(message[0] =='success'){
+                self.responseMessage.icon='fas fa-check';
+                self.responseMessage.color='alert-'+message[0];
+                self.formData.id=0;
+                self.formData.zone='';
+                self.formData.region='';
+                self.formData.district='';
+                self.formData.area='';
+                self.formData.name='';
+                self.formData.description='';
+                self.regionsByZone=[],
+                self.districtsByRegion=[]
+                self.areasByDistrict=[]
+                $('#zone').val('');
+                $('#zone').trigger('change');
+            }
           else{
             self.responseMessage.icon='fas fa-exclamation-triangle';
             self.responseMessage.color='alert-'+message[0];
@@ -227,6 +269,12 @@ export default {
       this.districtSelect2=$('#district')
         .select2().on("change", function() {
         vm.formData.district=this.value;
+        vm.formData.area='';
+        vm.filterAreas();
+      });
+       this.areaSelect2=$('#area')
+        .select2().on("change", function() {
+        vm.formData.area=this.value;
       });
     },
     computed:{
