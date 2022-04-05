@@ -189,7 +189,6 @@ export default {
           let url=`${process.env.BACKEND_URL}/getareabydistrictid/${this.formData.zone}`;
           let response=await axios.get(url);
           this.areasByDistrict=response.data.message;
-          console.log(this.areasByDistrict[0])
         }
       },
       async branch(){
@@ -220,6 +219,8 @@ export default {
                 self.regionsByZone=[],
                 self.districtsByRegion=[]
                 self.areasByDistrict=[]
+                self.formData.latitude='';
+                self.formData.longitude=''
                 $('#zone').val('');
                 $('#zone').trigger('change');
             }
@@ -230,7 +231,7 @@ export default {
         })
         self.alert = new Alert(this.$refs.alertMessage);
         setTimeout(function(){
-          if(self.$route.params.id != 0 && self.$route.name =='addArea'){
+          if(self.$route.params.id != 0 && self.$route.name =='addBranch' && self.responseMessage.messageType=='success'){
             self.$router.go(-1);
           }
         },5000);
@@ -238,10 +239,8 @@ export default {
     },
     async mounted(){
       if(this.id !=0){
-        let url=`${process.env.BACKEND_URL}/getAreaByID/${this.id}`;
-        alert(url);
+        let url=`${process.env.BACKEND_URL}/getbranchbyid/${this.id}`;
         var response=await axios.get(url);
-        console.log(response);
         this.formData.name=response.data.message.name;
         this.formData.zone=response.data.message.zone_id;
         $('#zone').val(this.formData.zone);
@@ -251,6 +250,11 @@ export default {
         this.filterDistricts();
         this.formData.district=response.data.message.district_id;
         $('#district').val(this.formData.district);
+        this.filterAreas();
+        this.formData.area=response.data.message.area_id
+        $('#area').val(this.formData.area);
+        this.formData.latitude=response.data.message.latitude;
+        this.formData.longitude=response.data.message.longitude;
         this.formData.description=response.data.message.description;
       }
       let vm=this;

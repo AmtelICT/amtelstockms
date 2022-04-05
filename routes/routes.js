@@ -44,6 +44,7 @@ const routes=(app)=>{
     //Branch
     app.post("/branch",branchcontroller.branch);
     app.get("/getBranch",branchcontroller.getbranch);
+    app.get("/getBranchByID/:id",branchcontroller.getbranchByID);
 
 }
 exports.routes=routes;
