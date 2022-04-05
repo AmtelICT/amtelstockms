@@ -2,9 +2,9 @@ const zoneController=require("../controllers/zone");
 const regionController=require("../controllers/region");
 const districtController=require("../controllers/district");
 const areaController=require("../controllers/area");
+const locationtypecontroller=require("../controllers/location_type");
 const hqcontroller=require("../controllers/hq_office");
 const branchcontroller=require("../controllers/branch");
-const { branch } = require("../models/branch");
 const routes=(app)=>{
     //home 
     app.get('/',(req,res)=>{
@@ -33,6 +33,10 @@ const routes=(app)=>{
     app.get("/getAreaByDistrictID/:id",areaController.getAreaByDistrictID);
     app.get("/getAreaByRegionID/:id",areaController.getAreaByRegionID);
     app.get("/getAreaByZoneID/:id",areaController.getAreaByZoneID);
+    //zones
+    app.post('/locationType',locationtypecontroller.locationType);
+    app.get('/getLocationType',locationtypecontroller.getlocationType);
+    app.get("/getLocationTypeById/:id",locationtypecontroller.getlocationTypeByID);
     //HQ Office
     app.post("/hq",hqcontroller.hq);
     app.get("/getHq",hqcontroller.getHq);
