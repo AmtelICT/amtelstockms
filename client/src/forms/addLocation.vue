@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Area</h1>
+            <h1 class="m-0">Add Location</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Registrations</li>
-              <li class="breadcrumb-item active">Areas</li>
+              <li class="breadcrumb-item active">Locations</li>
             </ol>
           </div>
         </div>
@@ -18,7 +18,7 @@
     </div>
     <section class="content">
       <div class="container-fluid">
-        <form @submit.prevent="branch">
+        <form @submit.prevent="location">
           <div class="card">
             <div class="card-body">
               <div class="row mb-2">
@@ -27,9 +27,18 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <label for="name">Brnach Name</label>
+                    <label for="name">Location Type {{formData.locationType}}</label>
+                    <select  v-model="formData.locationType" class="form-control select2" id="locationType" style="width: 100%;" required>
+                      <option value="">Select Location Type</option>
+                      <option v-for="(location,index) in locationTypeList" :value="location.id">{{location.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="name">Location Name</label>
                     <input type="text" v-model="formData.name" class="form-control" id="select2" placeholder="Enter Area Name" required>
                   </div>
                 </div>
@@ -126,19 +135,17 @@ import { Alert} from 'bootstrap'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import $ from "jquery"
-$(document).ready(function () {
-    $("#zone").change(function(){
-    })
-});
 export default {
     props:['id'],
-    name: 'addArea',
+    name: 'addLocation',
     data(){
         return{
+          locationTypeList:[],
           regionsByZone:[],
           districtsByRegion:[],
           areasByDistrict:[],
 
+          locationTypeSelect2:null,
           zoneSelect2:null,
           regionSelect2:null,
           districtSelect2:null,
@@ -148,6 +155,7 @@ export default {
           modal:null,
           formData:{
             id:this.id,
+            locationType:'',
             name:'',
             zone:'',
             region:'',
@@ -186,15 +194,16 @@ export default {
       async filterAreas(){
         if(this.formData.district){
           this.areasByDistrict=[];
-          let url=`${process.env.BACKEND_URL}/getareabydistrictid/${this.formData.zone}`;
+          let url=`${process.env.BACKEND_URL}/getareabydistrictid/${this.formData.district}`;
           let response=await axios.get(url);
           this.areasByDistrict=response.data.message;
         }
       },
-      async branch(){
+      async location(){
         let self=this;
-        await axios.post(`${process.env.BACKEND_URL}/branch`, {
+        await axios.post(`${process.env.BACKEND_URL}/location`, {
           id:this.formData.id,
+          location_type:this.formData.locationType,
           area_id:this.formData.area,
           name:this.formData.name,
           latitude:this.formData.latitude,
@@ -210,6 +219,7 @@ export default {
                 self.responseMessage.icon='fas fa-check';
                 self.responseMessage.color='alert-'+message[0];
                 self.formData.id=0;
+                self.formData.locationType='';
                 self.formData.zone='';
                 self.formData.region='';
                 self.formData.district='';
@@ -223,6 +233,8 @@ export default {
                 self.formData.longitude=''
                 $('#zone').val('');
                 $('#zone').trigger('change');
+                $('#locationType').val('');
+                $('#locationType').trigger('change');
             }
           else{
             self.responseMessage.icon='fas fa-exclamation-triangle';
@@ -238,8 +250,10 @@ export default {
       },
     },
     async mounted(){
+      const locationType=await axios.get(`${process.env.BACKEND_URL}/getLocationType`);
+      this.locationTypeList=locationType.data.message;
       if(this.id !=0){
-        let url=`${process.env.BACKEND_URL}/getbranchbyid/${this.id}`;
+        let url=`${process.env.BACKEND_URL}/getlocationbyid/${this.id}`;
         var response=await axios.get(url);
         this.formData.name=response.data.message.name;
         this.formData.zone=response.data.message.zone_id;
@@ -258,6 +272,11 @@ export default {
         this.formData.description=response.data.message.description;
       }
       let vm=this;
+
+      this.locationTypeSelect2=$("#locationType")
+        .select2().on("change",function(){
+        vm.formData.locationType=this.value;
+      })
       this.zoneSelect2=$('#zone')
         .select2().on("change", function() {
         vm.formData.zone=this.value;

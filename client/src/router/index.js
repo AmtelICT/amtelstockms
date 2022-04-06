@@ -1,20 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import ZoneList from '../views/Zone.vue'
-import addZone from '../components/addZone'
+import addZone from '../forms/addZone'
 
 
 import RegionList from "../views/Region.vue"
-import addRegion from "../components/addRegion.vue"
+import addRegion from "../forms/addRegion.vue"
 
 import DistrictList from "../views/District.vue"
-import addDistrict from "../components/addDistrict.vue"
+import addDistrict from "../forms/addDistrict.vue"
 
 import AreaList from "../views/Area.vue"
-import addArea from "../components/addArea.vue"
+import addArea from "../forms/addArea.vue"
 
-import BranchList from "../views/Branch.vue"
-import addBranch from "../components/addBranch.vue"
+
+import LocationTypeList from "../views/LocationType.vue"
+import addLocationType from "../forms/addLocationType.vue"
+
+
+import LocationList from "../views/Location.vue"
+import addLocation from "../forms/addLocation.vue"
 const routes = [
   {
     path: '/',
@@ -66,14 +71,25 @@ const routes = [
     props:true
   },
   {
-    path:"/branch-list",
-    name:"BranchList",
-    component:BranchList
+    path:"/location-type-list",
+    name:"LocationTypeList",
+    component:LocationTypeList
   },
   {
-    path:"/addBranch/:id",
-    name:"addBranch",
-    component:addBranch,
+    path:"/addLocationType/:id",
+    name:"addLocationType",
+    component:addLocationType,
+    props:true
+  },
+  {
+    path:"/location-list",
+    name:"LocationList",
+    component:LocationList
+  },
+  {
+    path:"/addLocation/:id",
+    name:"addLocation",
+    component:addLocation,
     props:true
   }
 ]

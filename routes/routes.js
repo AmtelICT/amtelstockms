@@ -4,7 +4,7 @@ const districtController=require("../controllers/district");
 const areaController=require("../controllers/area");
 const locationtypecontroller=require("../controllers/location_type");
 const hqcontroller=require("../controllers/hq_office");
-const branchcontroller=require("../controllers/branch");
+const locationcontroller=require("../controllers/location");
 const routes=(app)=>{
     //home 
     app.get('/',(req,res)=>{
@@ -46,9 +46,9 @@ const routes=(app)=>{
     app.get("/getHqByRegionID/:id",hqcontroller.getHqByRegionID);
     app.get("/getHqByZoneID/:id",hqcontroller.getHqByZoneID);
     //Branch
-    app.post("/branch",branchcontroller.branch);
-    app.get("/getBranch",branchcontroller.getbranch);
-    app.get("/getBranchByID/:id",branchcontroller.getbranchByID);
+    app.post("/location",locationcontroller.location);
+    app.get("/getLocation",locationcontroller.getlocation);
+    app.get("/getLocationByID/:id",locationcontroller.getlocationByID);
 
 }
 exports.routes=routes;

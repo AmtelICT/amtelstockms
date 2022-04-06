@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Branch List</h1>
+            <h1 class="m-0">location List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Registrations</li>
-              <li class="breadcrumb-item active">Branches</li>
+              <li class="breadcrumb-item active">Locations</li>
             </ol>
           </div>
         </div>
@@ -22,7 +22,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <router-link :to="{name:'addBranch',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
+                <router-link :to="{name:'addLocation',params:{id:0}}" class="btn btn-flat btn-primary mb-2 float-right">
                   <i class="fas fa-plus pr-2"></i>Create New
                 </router-link>
               </div>
@@ -34,7 +34,8 @@
                         <thead>
                         <tr>
                             <th>S. NO</th>
-                            <th>Branch Name</th>
+                            <th>Location Type</th>
+                            <th>Location Name</th>
                             <th>Area Name</th>
                             <th>District Name</th>
                             <th>Region Name</th>
@@ -47,18 +48,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(branch,index) in branchList">
+                        <tr v-for="(location,index) in locationList">
                             <td>{{index+1}}</td>
-                            <td>{{branch.name}}</td>
-                            <td>{{branch.area_name}}</td>
-                            <td>{{branch.district_name}}</td>
-                            <td>{{branch.region_name}}</td>
-                            <td>{{branch.zone_name}}</td>
-                            <td>{{branch.description}}</td>
-                            <td>{{branch.latitude}}</td>
-                            <td>{{branch.longitude}}</td>
-                            <td>{{branch.date}}</td>
-                            <td><router-link :to="{name:'addBranch',params:{id:branch.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td> 
+                            <td>{{location.locationType}}</td>
+                            <td>{{location.name}}</td>
+                            <td>{{location.area_name}}</td>
+                            <td>{{location.district_name}}</td>
+                            <td>{{location.region_name}}</td>
+                            <td>{{location.zone_name}}</td>
+                            <td>{{location.description}}</td>
+                            <td>{{location.latitude}}</td>
+                            <td>{{location.longitude}}</td>
+                            <td>{{location.date}}</td>
+                            <td><router-link :to="{name:'addLocation',params:{id:location.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></td> 
                         </tr>
                         </tbody>
                     </table>
@@ -77,19 +79,19 @@ import $ from "jquery";
 import axios from 'axios'
 import moment from 'moment'
 export default {
-  name: 'BranchList',
+  name: 'locationList',
   data(){
     return{
-      branchList:[]
+      locationList:[]
     }
   },
   async mounted(){
-    let url=`${process.env.BACKEND_URL}/getbranch`;
+    let url=`${process.env.BACKEND_URL}/getlocation`;
     const response=await axios.get(url);
     console.log(response);
-    this.branchList=response.data.message;
-    for(let i=0;i<this.branchList.length;i++){
-      this.branchList[i].date=moment(this.branchList[i].date).format("DD-MM-YYYY");
+    this.locationList=response.data.message;
+    for(let i=0;i<this.locationList.length;i++){
+      this.locationList[i].date=moment(this.locationList[i].date).format("DD-MM-YYYY");
     }
     setTimeout(function(){
       $("#table-list").DataTable({

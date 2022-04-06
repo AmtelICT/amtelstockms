@@ -77,15 +77,9 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/location-type-list" class="nav-link">
+                <router-link to="/branch-list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Location Types</p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/location-list" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Locations</p>
+                  <p>Branches</p>
                 </router-link>
               </li>
               <li class="nav-item">

@@ -11,12 +11,12 @@ const locationType=(data,callback)=>{
     )
 };
 const getlocationType=(callback)=>{
-    pool.createPool.query('CALL rp_locationTypes()',(error,result)=>{
+    pool.createPool.query('CALL rp_location_type()',(error,result)=>{
         return callback(error,result);
     });
 };
 const getlocationTypeByID=(id,callback)=>{
-    pool.createPool.query('SELECT * FROM locationType WHERE id=?',[id],(error,result)=>{
+    pool.createPool.query('SELECT * FROM location_type WHERE id=?',[id],(error,result)=>{
         return callback(error,result);
     });
 };
