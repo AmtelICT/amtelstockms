@@ -29,12 +29,11 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <table id="example2" class="table table-hover">
+                <table id="table-list" class="table table-hover">
                   <thead>
                   <tr>
                     <th>S NO</th>
                     <th>Location Type Name</th>
-                    <th>Description</th>
                     <th>Date</th>
                     <th>Actions</th>
                   </tr>
@@ -43,9 +42,8 @@
                   <tr v-for="(locationType,index) in LocationTypeList">
                     <td>{{index +1}}</td>
                     <td>{{locationType.name}}</td>
-                    <td>{{locationType.description}}</td>
                     <td>{{locationType.date}}</td>
-                    <!-- <th><router-link :to="{name:'addZone',params:{id:zone.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></th> -->
+                    <th><router-link :to="{name:'addLocationType',params:{id:locationType.id}}" class="btn btn-primary" type="button"><i class="fas fa-edit"></i></router-link></th>
                   </tr>
                   </tbody>
                 </table>
@@ -59,6 +57,7 @@
 </template>
 
 <script>
+import $ from "jquery";
 import axios from 'axios'
 import moment from 'moment'
 export default {
@@ -75,7 +74,16 @@ export default {
     for(let i=0;i<this.LocationTypeList.length;i++){
       this.LocationTypeList[i].date=moment(this.LocationTypeList[i].date).format("DD-MM-YYYY");
     }
-    console.log(this.LocationTypeList)
+    setTimeout(function(){
+      $("#table-list").DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+      });
+    })
   },
 }
 </script>
